@@ -1,4 +1,4 @@
-#include "../include/include.h"
+#include "include.h"
 /*
 void	print_keyboard(t_key *keyboard)
 {
