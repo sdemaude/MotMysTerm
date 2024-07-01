@@ -6,7 +6,10 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <time.h>
 # include "../lib/libft/libft.h"
+
+# define SIZE_HALF_WIN 94
 
 # define EN 1
 # define FR 2
@@ -29,12 +32,22 @@ typedef struct s_key
 	char	color[8];
 }	t_key;
 
+typedef struct s_word
+{
+	char	*word;
+	//int		index;
+	int		nb_letter;
+	char	first_letter;
+}	t_word;
+
 typedef struct s_data
 {
 	int			language;
 	t_key		keyboard;
 	char		*dic_path; // FR_DIC if FR EN_DIC if EN
 	t_list_str	*dictionary;
+	int			word_in_dic;
+	t_word		word;
 }	t_data;
 
 #endif
