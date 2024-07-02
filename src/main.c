@@ -1,38 +1,5 @@
 #include "../include/include.h"
 
-void	lststr_add_bk(t_list_str **lst, t_list_str *new)
-{
-	while (*lst != NULL)
-		lst = &(*lst)->next;
-	*lst = new;
-}
-
-t_list_str	*lststr_new(char *str)
-{
-	t_list_str	*new;
-
-	new = malloc(sizeof(t_list_str));
-	if (!new)
-		return (0);
-	str[ft_strlen(str) - 1] = '\0'; //or modified gnl for line without '\n'
-	new->line = str;
-	new->next = NULL;
-	return (new);
-}
-
-void	free_list(t_list_str *list)
-{
-	t_list_str	*tmp;
-
-	while (list != NULL)
-	{
-		tmp = list->next;
-		free(list->line);
-		free(list);
-		list = tmp;
-	}
-}
-
 bool	get_file(t_data *data) //bool ??
 {
 	char	*file;
@@ -57,18 +24,6 @@ bool	get_file(t_data *data) //bool ??
 	return (close(fd), true);
 }
 
-void	print_list(t_list_str *list)
-{
-	t_list_str	*tmp;
-
-	tmp = list;
-	while (tmp)
-	{
-		printf("%s\n", tmp->line);
-		tmp = tmp->next;
-	}
-}
-
 void	get_word(t_data	*data)
 {
 	t_list_str	*tmp = data->dictionary;
@@ -84,28 +39,86 @@ void	get_word(t_data	*data)
 	data->word.nb_letter = ft_strlen(data->word.word);
 }
 
+bool	is_to_find(t_data *data)
+{
+	if (!strcmp(data->word.word, data->last_input))
+		return (true);
+	return (false);
+}
+
+bool	is_in_dict(t_data *data, char *input)
+{
+	t_list_str	*tmp;
+
+	tmp = data->dictionary;
+	while (tmp)
+	{
+		if (!strcmp(tmp->line, input))
+			return (true);
+		tmp = tmp->next;
+	}
+	return (false);
+}
+
+void	incorrect_input(t_data *data, char *input, t_incorrect_input err_msg)
+{
+	if (err_msg == ONLY_LETTER)
+		printf("must be only letters\n");
+	else if (err_msg == NUMBER_LETTER)
+		printf("incorrect nb of letter\n");
+	else if (err_msg == IN_DICTIONARY)
+		printf("not in dictionary\n");
+	else if (err_msg == FIRST_LETTER)
+		printf("must start by a %c\n", data->word.word[0]);
+	free(input);
+	get_input(data);
+}
+
+void	get_input(t_data *data)
+{
+	char	*input;
+
+	input = readline("> ");
+	for (int i = 0; input[i]; i++)
+	{
+		if (!ft_isalpha(input[i]))
+			incorrect_input(data, input, ONLY_LETTER);
+		input[i] = toupper(input[i]);
+	}
+	if ((int)ft_strlen(input) != data->word.nb_letter)
+		incorrect_input(data, input, NUMBER_LETTER);
+	if (!is_in_dict(data, input))
+		incorrect_input(data, input, IN_DICTIONARY);
+	if (input[0] != data->word.word[0])
+		incorrect_input(data, input, FIRST_LETTER);
+	data->last_input = input;
+}
+
 int	main(void)
 {
 	t_data	data;
 
-	//get language ---> EN or FR (fr by default for now) -> set date.dic_path
-	//print rules
+	print_rules();
 	get_file(&data);
 	get_word(&data);
 	printf("word to find = %s\nfirst letter = %c\nnumber of letter = %d\n", data.word.word, data.word.first_letter, data.word.nb_letter);
-	//set_keyboard(&keyboard);
-	//  |-->print tab-------------------|
-	//  |--print_keyboard(&keyboard);<--|
+	for (int i = 0; i < ATTEMPT; i++)
+	{
+		get_input(&data);
+		//update_tab(&data);
+		printf("%s\n", data.last_input); //free after each call to this function
+		//update_ltrs();
+		if (is_to_find(&data))
+		{
+			data.win = true;
+			break ;
+		}
+		//set_keyboard(&keyboard);
+		//  |-->print tab-------------------|
+		//  |--print_keyboard(&keyboard);<--|
+		free(data.last_input);
+	}
 	//display result
 	free_list(data.dictionary);
 	return (EXIT_SUCCESS);
 }
-/*
-int	main(void)
-{
-	//int	fd = open();
-	print_rules();
-
-	//close(fd);
-	return (0);
-}*/
