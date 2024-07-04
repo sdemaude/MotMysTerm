@@ -7,7 +7,7 @@ bool	get_file(t_data *data) //bool ??
 	int		fd;
 
 	file = NULL;
-	fd = open(FR_DIC, O_RDONLY); //data->dic_path later
+	fd = open(DICT_PATH, O_RDONLY);
 	if (fd < 0)
 		return (printf("Error\n"), false);
 	line = get_next_line(fd);
@@ -97,8 +97,25 @@ void	get_input(t_data *data)
 int	main(void)
 {
 	t_data	data;
+	t_key keyboard[] = {
+		// Première rangée
+		{'A', WHITE}, {'Z', WHITE}, {'E', WHITE}, {'R', WHITE}, {'T', WHITE}, 
+		{'Y', WHITE}, {'U', WHITE}, {'I', WHITE}, {'O', WHITE}, {'P', WHITE},
+		
+		// Deuxième rangée
+		{'Q', "\033[35m"}, {'S', "\033[36m"}, {'D', "\033[31m"}, {'F', "\033[32m"}, {'G', "\033[33m"}, 
+		{'H', "\033[34m"}, {'J', "\033[35m"}, {'K', "\033[36m"}, {'L', "\033[31m"}, {'M', "\033[32m"},
+		
+		// Troisième rangée
+		{'W', "\033[35m"}, {'X', "\033[36m"}, {'C', "\033[31m"}, {'V', "\033[32m"}, {'B', "\033[33m"}, 
+		{'N', "\033[34m"}
+};
+
+int numRows = 3;
+int numCols[] = {10, 10, 6}; // Nombre de colonnes pour chaque rangée
 
 	print_rules();
+	display_keyboard(keyboard, numRows, numCols);
 	get_file(&data);
 	get_word(&data);
 	printf("word to find = %s\nfirst letter = %c\nnumber of letter = %d\n", data.word.word, data.word.first_letter, data.word.nb_letter);

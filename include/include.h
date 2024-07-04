@@ -33,8 +33,6 @@
 # define CROSS "\u253C"
 
 # define SIZE_HALF_WIN 94
-# define LINE_AST "**********************************************************************************************"
-# define LINE_TIR "----------------------------------------------------------------------------------------------"
 
 # define ATTEMPT 6
 
@@ -54,13 +52,6 @@ typedef struct s_list_str
 	struct s_list_str	*next;
 }	t_list_str;
 
-// Define a struct to hold each letter and its color
-typedef struct s_key
-{
-	char	letter;
-	char	color[8];
-}	t_key;
-
 typedef struct s_word
 {
 	char	*word;
@@ -69,10 +60,15 @@ typedef struct s_word
 	char	first_letter;
 }	t_word;
 
+typedef struct s_key
+{
+	char	letter;
+	char	*color;
+}	t_key;
+
 typedef struct s_data
 {
 	int			language;
-	t_key		keyboard;
 	char		*dic_path; // FR_DIC if FR EN_DIC if EN
 	t_list_str	*dictionary;
 	int			word_in_dic;
@@ -83,6 +79,7 @@ typedef struct s_data
 
 void		print_rules(void);
 
+void		display_keyboard(t_key keyboard[], int numRows, int numCols[]);
 //LIST_UTILS
 void		lststr_add_bk(t_list_str **lst, t_list_str *new);
 t_list_str	*lststr_new(char *str);

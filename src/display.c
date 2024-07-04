@@ -62,25 +62,25 @@ void print_interface(char guesses[][5], char results[][5], int wordLength)
 			printf("%s", T_BOTTOM);
 	}
 	printf("%s\n", BOTTOM_RIGHT);
-}
-
-void	print_keyboard(t_key *keyboard)
-{
-	printf("\033[2J\033[H");
-    // Iterate through each row
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 10; j++) {
-            // Only print valid keys
-            if (keyboard[i][j].letter != ' ') {
-                // Print the letter with its color
-                printf("%s%c\033[0m ", keyboard[i][j].color, keyboard[i][j].letter);
-            } else {
-                printf("   ");  // Print spaces for alignment
-            }
-        }
-        printf("\n");
-    }
 }*/
+
+void	display_keyboard(t_key keyboard[], int numRows, int numCols[])
+{
+	int index = 0;
+
+	for (int i = 0; i < numRows; i++) {
+		int padding = (13 - numCols[i]) / 2; // Calcul du padding pour centrer la ligne
+		for (int p = 0; p < padding; p++) {
+			printf("  "); // Espace pour le padding
+		}
+
+		for (int j = 0; j < numCols[i]; j++) {
+			printf("%s%c\033[0m ", keyboard[index].color, keyboard[index].letter);
+			index++;
+		}
+		printf("\n");
+	}
+}
 
 void	print_rules(void)
 {
@@ -101,18 +101,3 @@ void	print_rules(void)
 	printf("T n'est pas dans le mot (Blanc). O n'est pas dans le mot (Blanc). M est correct mais à la mauvaise place (Jaune).\n");
 	printf("Bonne chance et amusez-vous bien !\n\n");
 }
-
-/*
-void	set_keyboard(t_key *keyboard)
-{
-	keyboard = {
-        {{'Q', "\033[31m"}, {'W', "\033[32m"}, {'E', "\033[33m"}, {'R', "\033[34m"}, {'T', "\033[35m"},
-         {'Y', "\033[36m"}, {'U', "\033[31m"}, {'I', "\033[32m"}, {'O', "\033[33m"}, {'P', "\033[34m"}},
-        {{' ', ""}, {'A', "\033[35m"}, {'S', "\033[36m"}, {'D', "\033[31m"}, {'F', "\033[32m"},
-         {'G', "\033[33m"}, {'H', "\033[34m"}, {'J', "\033[35m"}, {'K', "\033[36m"}, {'L', "\033[31m"}},
-        {{' ', ""}, {' ', ""}, {'Z', "\033[32m"}, {'X', "\033[33m"}, {'C', "\033[34m"},
-         {'V', "\033[35m"}, {'B', "\033[36m"}, {'N', "\033[31m"}, {'M', "\033[32m"}, {' ', ""}}
-	};
-}
-
-*/
