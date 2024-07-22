@@ -94,48 +94,67 @@ void	get_input(t_data *data)
 	data->last_input = input;
 }
 
+void	set_keyboard(t_data *data)
+{
+	t_key keyboard[] = {
+		// Première rangée
+	{'A', WHITE}, {'Z', WHITE}, {'E', WHITE}, {'R', WHITE}, {'T', WHITE},
+	{'Y', WHITE}, {'U', WHITE}, {'I', WHITE}, {'O', WHITE}, {'P', WHITE},
+		// Deuxième rangée
+	{'Q', WHITE}, {'S', WHITE}, {'D', WHITE}, {'F', WHITE}, {'G', WHITE},
+	{'H', WHITE}, {'J', WHITE}, {'K', WHITE}, {'L', WHITE}, {'M', WHITE},
+		// Troisième rangée
+	{'W', WHITE}, {'X', WHITE}, {'C', WHITE}, {'V', WHITE}, {'B', WHITE},
+	{'N', WHITE}
+	};
+
+	data->keyboard = keyboard;
+}
+
+void	init_game(t_data *data)
+{
+	set_keyboard(data);
+	get_file(data);
+	get_word(data);
+}
+
+void	display_interface(t_data *data)
+{
+	//reset_keyboard(&keyboard);
+	//  |-->print tab-------------------|
+	//  |--print_keyboard(&keyboard);<--|
+	print_rules();
+	print_grid(data); // + first letter 
+	print_keyboard(data->keyboard);
+}
+
+void	display_result(t_data *data)
+{
+	if (data->win)
+		printf("%s%sGagné%s\n", GREEN, BOLD, RESET);
+	else
+		printf("%s%sPerdu%s\n", RED, BOLD, RESET);
+}
+
 int	main(void)
 {
 	t_data	data;
-	t_key keyboard[] = {
-		// Première rangée
-		{'A', WHITE}, {'Z', WHITE}, {'E', WHITE}, {'R', WHITE}, {'T', WHITE}, 
-		{'Y', WHITE}, {'U', WHITE}, {'I', WHITE}, {'O', WHITE}, {'P', WHITE},
-		
-		// Deuxième rangée
-		{'Q', "\033[35m"}, {'S', "\033[36m"}, {'D', "\033[31m"}, {'F', "\033[32m"}, {'G', "\033[33m"}, 
-		{'H', "\033[34m"}, {'J', "\033[35m"}, {'K', "\033[36m"}, {'L', "\033[31m"}, {'M', "\033[32m"},
-		
-		// Troisième rangée
-		{'W', "\033[35m"}, {'X', "\033[36m"}, {'C', "\033[31m"}, {'V', "\033[32m"}, {'B', "\033[33m"}, 
-		{'N', "\033[34m"}
-};
 
-int numRows = 3;
-int numCols[] = {10, 10, 6}; // Nombre de colonnes pour chaque rangée
-
-	print_rules();
-	display_keyboard(keyboard, numRows, numCols);
-	get_file(&data);
-	get_word(&data);
-	printf("word to find = %s\nfirst letter = %c\nnumber of letter = %d\n", data.word.word, data.word.first_letter, data.word.nb_letter);
+	init_game(&data);
+	display_interface(&data);
 	for (int i = 0; i < ATTEMPT; i++)
 	{
 		get_input(&data);
-		//update_tab(&data);
-		printf("%s\n", data.last_input); //free after each call to this function
-		//update_ltrs();
 		if (is_to_find(&data))
 		{
 			data.win = true;
 			break ;
 		}
-		//set_keyboard(&keyboard);
-		//  |-->print tab-------------------|
-		//  |--print_keyboard(&keyboard);<--|
+		//update_tab(&data) + update_ltrs();
+		display_interface(&data);
 		free(data.last_input);
 	}
-	//display result
+	display_result(&data);
 	free_list(data.dictionary);
 	return (EXIT_SUCCESS);
 }

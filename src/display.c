@@ -1,15 +1,14 @@
 #include "../include/include.h"
-/*
-// Function to print the Wordle interface
-void print_interface(char guesses[][5], char results[][5], int wordLength)
-{
 
+// Function to print the Wordle interface
+void	print_grid(t_data *data)
+{
 	// Print the top border
 	printf("%s", TOP_LEFT);
-	for (int j = 0; j < wordLength; j++)
+	for (int j = 0; j < data->word.nb_letter; j++)
 	{
 		printf("%s%s%s", HORIZONTAL, HORIZONTAL, HORIZONTAL);
-		if (j < wordLength - 1)
+		if (j < data->word.nb_letter - 1)
 			printf("%s", T_TOP);
 	}
 	printf("%s\n", TOP_RIGHT);
@@ -19,9 +18,9 @@ void print_interface(char guesses[][5], char results[][5], int wordLength)
 	{
 		// Print the row with guesses
 		printf("%s", VERTICAL);
-		for (int j = 0; j < wordLength; j++)
+		for (int j = 0; j < data->word.nb_letter; j++)
 		{
-			char result = results[i][j];
+		/*	char result = results[i][j];
 			char guess = guesses[i][j];
 
 			if (result == 'G')
@@ -36,17 +35,17 @@ void print_interface(char guesses[][5], char results[][5], int wordLength)
 					printf(" %s%c%s ", WHITE, guess, RESET); // White for incorrect letter
 			}
 			printf("%s", VERTICAL);
-		}
+		*/}
 		printf("\n");
 
 		// Print the border between rows
 		if (i < ATTEMPT - 1)
 		{
 			printf("%s", T_LEFT);
-			for (int j = 0; j < wordLength; j++)
+			for (int j = 0; j < data->word.nb_letter; j++)
 			{
 				printf("%s%s%s", HORIZONTAL, HORIZONTAL, HORIZONTAL);
-				if (j < wordLength - 1)
+				if (j < data->word.nb_letter - 1)
 					printf("%s", CROSS);
 			}
 			printf("%s\n", T_RIGHT);
@@ -55,26 +54,29 @@ void print_interface(char guesses[][5], char results[][5], int wordLength)
 
 	// Print the bottom border
 	printf("%s", BOTTOM_LEFT);
-	for (int j = 0; j < wordLength; j++)
+	for (int j = 0; j < data->word.nb_letter; j++)
 	{
 		printf("%s%s%s", HORIZONTAL, HORIZONTAL, HORIZONTAL);
-		if (j < wordLength - 1)
+		if (j < data->word.nb_letter - 1)
 			printf("%s", T_BOTTOM);
 	}
 	printf("%s\n", BOTTOM_RIGHT);
-}*/
+}
 
-void	display_keyboard(t_key keyboard[], int numRows, int numCols[])
+void	print_keyboard(t_key keyboard[])
 {
+	int numRows = 3;
+	int numCols[] = {10, 10, 6}; // Nombre de colonnes pour chaque rangée
+
 	int index = 0;
 
-	for (int i = 0; i < numRows; i++) {
+	for (int i = 0; i < numRows; i++)
+	{
 		int padding = (13 - numCols[i]) / 2; // Calcul du padding pour centrer la ligne
-		for (int p = 0; p < padding; p++) {
+		for (int p = 0; p < padding; p++)
 			printf("  "); // Espace pour le padding
-		}
-
-		for (int j = 0; j < numCols[i]; j++) {
+		for (int j = 0; j < numCols[i]; j++)
+		{
 			printf("%s%c\033[0m ", keyboard[index].color, keyboard[index].letter);
 			index++;
 		}
@@ -84,9 +86,9 @@ void	display_keyboard(t_key keyboard[], int numRows, int numCols[])
 
 void	print_rules(void)
 {
-	printf("\033[2J\033[H");
+	printf("\e[H\e[2J\e[3J");
     // Print the rules
-	printf("Bienvenue à Sutom !\n");
+	printf("Bienvenue dans Sutom !\n");
 	printf("Règles du jeu :\n");
 	printf("1. Vous avez 6 tentatives pour deviner un mot de 5 à 7 lettres.\n");
 	printf("2. Chaque mot doit être un mot valide.\n");

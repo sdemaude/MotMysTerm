@@ -18,6 +18,7 @@
 # define RESET "\033[0m"
 # define WHITE "\033[1;37m"
 # define BLACK_ON_WHITE "\033[0;30;47m"
+# define BOLD "\033[1m"
 
 // Extended ASCII characters for borders
 # define TOP_LEFT "\u250C"
@@ -69,8 +70,9 @@ typedef struct s_key
 typedef struct s_data
 {
 	int			language;
-	char		*dic_path; // FR_DIC if FR EN_DIC if EN
+	char		*dic_path;
 	t_list_str	*dictionary;
+	t_key		*keyboard;
 	int			word_in_dic;
 	t_word		word;
 	char		*last_input;
@@ -79,7 +81,8 @@ typedef struct s_data
 
 void		print_rules(void);
 
-void		display_keyboard(t_key keyboard[], int numRows, int numCols[]);
+void		print_keyboard(t_key keyboard[]);
+void		print_grid(t_data *data);
 //LIST_UTILS
 void		lststr_add_bk(t_list_str **lst, t_list_str *new);
 t_list_str	*lststr_new(char *str);
