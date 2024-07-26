@@ -6,7 +6,7 @@
 #    By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/25 17:41:22 by sdemaude          #+#    #+#              #
-#    Updated: 2024/07/02 10:06:54 by sdemaude         ###   ########.fr        #
+#    Updated: 2024/07/23 11:04:37 by sdemaude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ LIBFT		= $(LIBFTDIR)/libft.a
 SRCDIR		= src
 SRCFILE		= main\
 			  list_utils\
-			  display
+			  display\
+			  init
 
 SRC 		= $(addprefix $(SRCDIR)/,$(addsuffix .c,$(SRCFILE)))
 

@@ -1,6 +1,5 @@
 #include "../include/include.h"
 
-// Function to print the Wordle interface
 void	print_grid(t_data *data)
 {
 	// Print the top border
@@ -16,10 +15,22 @@ void	print_grid(t_data *data)
 	// Print the Wordle grid
 	for (int i = 0; i < ATTEMPT; i++)
 	{
-		// Print the row with guesses
 		printf("%s", VERTICAL);
-		for (int j = 0; j < data->word.nb_letter; j++)
+		int k = 0;
+		// Print the row with guesses
+		if (i == data->attempts)
+		{	
+			printf(" %s%c%s ", WHITE, data->word.first_letter, RESET);
+			printf("%s", VERTICAL);
+			k = 1;
+		}
+		for (int j = k; j < data->word.nb_letter; j++)
 		{
+			if (data->guesses[i] && data->guesses[i][j])
+				printf(" %s%c%s ", WHITE, data->guesses[i][j], RESET);
+			else
+				printf("%s _ %s", BLACK_ON_WHITE, RESET); // Empty box for no guess
+			//printf(" %s%c%s ", WHITE, data->guesses[i][j], RESET);
 		/*	char result = results[i][j];
 			char guess = guesses[i][j];
 
@@ -33,9 +44,9 @@ void	print_grid(t_data *data)
 					printf("%s _ %s", BLACK_ON_WHITE, RESET); // Empty box for no guess
 				else
 					printf(" %s%c%s ", WHITE, guess, RESET); // White for incorrect letter
-			}
+			}*/
 			printf("%s", VERTICAL);
-		*/}
+		}
 		printf("\n");
 
 		// Print the border between rows
@@ -63,25 +74,27 @@ void	print_grid(t_data *data)
 	printf("%s\n", BOTTOM_RIGHT);
 }
 
-void	print_keyboard(t_key keyboard[])
+void	print_keyboard(t_data *data, t_key *keyboard)
 {
 	int numRows = 3;
 	int numCols[] = {10, 10, 6}; // Nombre de colonnes pour chaque rangée
 
 	int index = 0;
 
+	printf("\n");
 	for (int i = 0; i < numRows; i++)
 	{
-		int padding = (13 - numCols[i]) / 2; // Calcul du padding pour centrer la ligne
+		int padding = (2 * data->word.nb_letter - numCols[i]) / 2; // Calcul du padding pour centrer la ligne
 		for (int p = 0; p < padding; p++)
 			printf("  "); // Espace pour le padding
 		for (int j = 0; j < numCols[i]; j++)
 		{
-			printf("%s%c\033[0m ", keyboard[index].color, keyboard[index].letter);
+			printf("%s%c%s ", keyboard[index].color, keyboard[index].letter, RESET);
 			index++;
 		}
 		printf("\n");
 	}
+	printf("\n");
 }
 
 void	print_rules(void)
@@ -90,7 +103,7 @@ void	print_rules(void)
     // Print the rules
 	printf("Bienvenue dans Sutom !\n");
 	printf("Règles du jeu :\n");
-	printf("1. Vous avez 6 tentatives pour deviner un mot de 5 à 7 lettres.\n");
+	printf("1. Vous avez 6 tentatives pour deviner un mot de 5 à 10(?) lettres.\n");
 	printf("2. Chaque mot doit être un mot valide.\n");
 	printf("3. Après chaque tentative, la couleur des cases changera pour montrer à quel point votre tentative était proche du mot.\n");
 	printf("   - %sRouge%s : La lettre est dans le mot et à la bonne place.\n", RED, RESET);

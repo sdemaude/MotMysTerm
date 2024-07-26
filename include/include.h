@@ -75,14 +75,22 @@ typedef struct s_data
 	t_key		*keyboard;
 	int			word_in_dic;
 	t_word		word;
+	int			attempts;
 	char		*last_input;
+	char		*guesses[6];
 	bool		win;
 }	t_data;
 
-void		print_rules(void);
+//INIT
+void		set_keyboard(t_data *data);
+bool		get_file(t_data *data);
+void		get_word(t_data	*data);
 
-void		print_keyboard(t_key keyboard[]);
+//DISPLAY
+void		print_rules(void);
+void		print_keyboard(t_data *data, t_key keyboard[]);
 void		print_grid(t_data *data);
+
 //LIST_UTILS
 void		lststr_add_bk(t_list_str **lst, t_list_str *new);
 t_list_str	*lststr_new(char *str);
