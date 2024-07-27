@@ -103,7 +103,7 @@ void	print_rules(void)
     // Print the rules
 	printf("Bienvenue dans Sutom !\n");
 	printf("Règles du jeu :\n");
-	printf("1. Vous avez 6 tentatives pour deviner un mot de 5 à 10(?) lettres.\n");
+	printf("1. Vous avez 6 tentatives pour deviner un mot de 5 à 10 lettres.\n");
 	printf("2. Chaque mot doit être un mot valide.\n");
 	printf("3. Après chaque tentative, la couleur des cases changera pour montrer à quel point votre tentative était proche du mot.\n");
 	printf("   - %sRouge%s : La lettre est dans le mot et à la bonne place.\n", RED, RESET);
