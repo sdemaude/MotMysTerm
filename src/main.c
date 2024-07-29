@@ -53,17 +53,28 @@ bool	check_input(t_data *data)
 	return (true);
 }
 
+void	refill_alpha(t_data *data)
+{
+	for (int i = 0; i < 26; i++)
+		data->word.alpha[i] = 0;
+	for (int i = 0; data->word.word[i]; i++)
+		data->word.alpha[data->word.word[i] - 65]++;
+}
+
 void	init_game(t_data *data)
 {
 	set_keyboard(data);
 	get_file(data);
 	get_word(data);
+	refill_alpha(data);
 }
 
 void	display_interface(t_data *data)
 {
 	print_rules();
+	refill_alpha(data);
 	print_grid(data);
+	refill_alpha(data);
 	print_keyboard(data, data->keyboard);
 }
 
@@ -104,7 +115,7 @@ int	main(void)
 			break ;
 		}
 		data.attempts++;
-		update_tab(&data);// + update_ltrs();
+		update_tab(&data);
 		display_interface(&data);
 		free(data.last_input);
 	}

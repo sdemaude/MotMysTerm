@@ -1,4 +1,23 @@
 #include "../include/include.h"
+#include <string.h>
+
+void	set_keyboard_color(t_key *keyboard, char letter, char *color)
+{
+	for (int i = 0; i < 26; i++)
+	{
+		if (keyboard[i].letter == letter)
+		{
+			if (!strcmp(keyboard[i].color, RED))
+				;
+			else if (!strcmp(keyboard[i].color, BLACK))
+				;
+			else if (!strcmp(keyboard[i].color, YELLOW) && strcmp(color, RED))
+				;
+			else
+				keyboard[i].color = color;
+		}
+	}
+}
 
 void	print_grid(t_data *data)
 {
@@ -17,6 +36,7 @@ void	print_grid(t_data *data)
 	{
 		printf("%s", VERTICAL);
 		int k = 0;
+
 		// Print the row with guesses
 		if (i == data->attempts)
 		{	
@@ -27,24 +47,28 @@ void	print_grid(t_data *data)
 		for (int j = k; j < data->word.nb_letter; j++)
 		{
 			if (data->guesses[i] && data->guesses[i][j])
-				printf(" %s%c%s ", WHITE, data->guesses[i][j], RESET);
+			{
+				if (data->guesses[i][j] == data->word.word[j])
+				{
+					printf(" %s%c%s ", RED, data->guesses[i][j], RESET);
+					set_keyboard_color(data->keyboard, data->guesses[i][j], RED); 
+					data->word.alpha[data->guesses[i][j] - 65]--;
+				}
+				else if (data->word.alpha[data->guesses[i][j] - 65] > 0)
+				{
+					//strchr(data->guesses[i] + j, data->guesses[i][j]);
+					printf(" %s%c%s ", YELLOW, data->guesses[i][j], RESET);
+					set_keyboard_color(data->keyboard, data->guesses[i][j], YELLOW); 
+					data->word.alpha[data->guesses[i][j] - 65]--;
+				}
+				else
+				{
+					printf(" %s%c%s ", WHITE, data->guesses[i][j], RESET);
+					set_keyboard_color(data->keyboard, data->guesses[i][j], BLACK); 
+				}
+			}
 			else
 				printf("%s _ %s", BLACK_ON_WHITE, RESET); // Empty box for no guess
-			//printf(" %s%c%s ", WHITE, data->guesses[i][j], RESET);
-		/*	char result = results[i][j];
-			char guess = guesses[i][j];
-
-			if (result == 'G')
-				printf(" %s%c%s ", RED, guess, RESET);  // Red for correct position
-			else if (result == 'Y')
-				printf(" %s%c%s ", YELLOW, guess, RESET); // Yellow for correct letter but wrong position
-			else
-			{
-				if (guess == ' ')
-					printf("%s _ %s", BLACK_ON_WHITE, RESET); // Empty box for no guess
-				else
-					printf(" %s%c%s ", WHITE, guess, RESET); // White for incorrect letter
-			}*/
 			printf("%s", VERTICAL);
 		}
 		printf("\n");
@@ -61,6 +85,7 @@ void	print_grid(t_data *data)
 			}
 			printf("%s\n", T_RIGHT);
 		}
+		refill_alpha(data);
 	}
 
 	// Print the bottom border
@@ -103,7 +128,7 @@ void	print_rules(void)
     // Print the rules
 	printf("Bienvenue dans Sutom !\n");
 	printf("Règles du jeu :\n");
-	printf("1. Vous avez 6 tentatives pour deviner un mot de 5 à 10 lettres.\n");
+	printf("1. Vous avez 6 tentatives pour deviner un mot de 6 à 9 lettres.\n");
 	printf("2. Chaque mot doit être un mot valide.\n");
 	printf("3. Après chaque tentative, la couleur des cases changera pour montrer à quel point votre tentative était proche du mot.\n");
 	printf("   - %sRouge%s : La lettre est dans le mot et à la bonne place.\n", RED, RESET);

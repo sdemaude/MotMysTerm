@@ -17,6 +17,7 @@
 # define YELLOW "\033[1;33m"
 # define RESET "\033[0m"
 # define WHITE "\033[1;37m"
+# define BLACK "\033[0;30m"
 # define BLACK_ON_WHITE "\033[0;30;47m"
 # define BOLD "\033[1m"
 
@@ -56,7 +57,7 @@ typedef struct s_list_str
 typedef struct s_word
 {
 	char	*word;
-	//int		index;
+	int		alpha[26];
 	int		nb_letter;
 	char	first_letter;
 }	t_word;
@@ -85,6 +86,7 @@ typedef struct s_data
 void		set_keyboard(t_data *data);
 bool		get_file(t_data *data);
 void		get_word(t_data	*data);
+void		refill_alpha(t_data *data);
 
 //DISPLAY
 void		print_rules(void);
