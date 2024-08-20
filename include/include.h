@@ -34,8 +34,6 @@
 # define T_RIGHT "\u2524"
 # define CROSS "\u253C"
 
-# define SIZE_HALF_WIN 94
-
 # define ATTEMPT 6
 
 # define DICT_PATH "include/file.txt"
@@ -100,5 +98,9 @@ void		free_list(t_list_str *list);
 //void		print_list(t_list_str *list);
 
 void		get_input(t_data *data);
+
+//INPUT
+bool		check_input(t_data *data);
+bool		is_to_find(t_data *data);
 
 #endif

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= prog 
+NAME 		= SUTOM 
 
 CC 			= cc
 RM			= rm -f
@@ -26,7 +26,8 @@ SRCDIR		= src
 SRCFILE		= main\
 			  list_utils\
 			  display\
-			  init
+			  init\
+			  input
 
 SRC 		= $(addprefix $(SRCDIR)/,$(addsuffix .c,$(SRCFILE)))
 

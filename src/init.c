@@ -46,7 +46,7 @@ void	get_word(t_data	*data)
 	t_list_str	*tmp = data->dictionary;
 
 	srand(time(NULL));
-	int	rand_word = rand() % (data->word_in_dic + 1);
+	int	rand_word = rand() % data->word_in_dic;
 
 	for (int i = 0; i < rand_word - 1; i++)
 		tmp = tmp->next;

@@ -38,7 +38,7 @@ void	print_grid(t_data *data)
 		int k = 0;
 
 		// Print the row with guesses
-		if (i == data->attempts)
+		if (!data->win && i == data->attempts)
 		{	
 			printf(" %s%c%s ", WHITE, data->word.first_letter, RESET);
 			printf("%s", VERTICAL);
