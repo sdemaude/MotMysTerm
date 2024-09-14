@@ -19,7 +19,7 @@ To install and run **MotMysTerm**, follow these steps:
 
 1. Clone the repository:
 
-   `git clone <repository-url>`
+   `git clone https://github.com/sdemaude/MotMysTerm.git`
 
 2. Change to the project directory:
 
