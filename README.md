@@ -40,12 +40,6 @@ To install and run **MotMysTerm**, follow these steps:
   3. The game will provide feedback on which letters are correct and in the right position, or which are present but misplaced.    
   4. Keep guessing until you find the secret word or run out of attempts.
 
-## Controls
-
-  - Enter a word to make a guess.
-  - Press Enter to submit your guess.
-  - The game ends when you either guess the word correctly or exhaust all attempts.
-
 ## Things to Improve
 
   - Multiplayer Mode: Add a multiplayer feature so that players can compete to guess the word the fastest.
