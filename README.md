@@ -42,6 +42,7 @@ To install and run **MotMysTerm**, follow these steps:
 
 ## Things to Improve
 
-  - Multiplayer Mode: Add a multiplayer feature so that players can compete to guess the word the fastest.
   - Custom Word Lists: Allow players to upload their own word lists or adjust difficulty with different dictionaries.
+  - Windows Portability: Modify the game to run natively on Windows systems.
   - Save Progress: Add a save and resume feature to allow players to continue their game later.
+  - Multiplayer Mode: Add a multiplayer feature so that players can compete to guess the word the fastest.
