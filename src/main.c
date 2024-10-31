@@ -8,6 +8,7 @@ void	refill_alpha(t_data *data)
 		data->word.alpha[data->word.word[i] - 65]++;
 }
 
+// Initialize the game
 void	init_game(t_data *data)
 {
 	set_keyboard(data);
@@ -16,6 +17,7 @@ void	init_game(t_data *data)
 	refill_alpha(data);
 }
 
+// Display the game interface
 void	display_interface(t_data *data)
 {
 	print_rules();
@@ -25,6 +27,7 @@ void	display_interface(t_data *data)
 	print_keyboard(data, data->keyboard);
 }
 
+// Display the game result
 void	display_result(t_data *data)
 {
 	if (data->win)
@@ -33,6 +36,7 @@ void	display_result(t_data *data)
 		printf("%s%sPerdu...%s\nLe mot à trouver était : %s.\n", RED, BOLD, RESET, data->word.word);
 }
 
+// Update the guesses table with the last input
 void	update_tab(t_data *data)
 {
 	int	i;
@@ -42,6 +46,7 @@ void	update_tab(t_data *data)
 		data->guesses[i] = strdup(data->last_input);
 }
 
+// Free a tab of strings
 void	free_tab(char **tab)
 {
 	if (!tab)
@@ -54,30 +59,35 @@ int	main(void)
 {
 	static t_data	data;
 
+	// Initialization
 	init_game(&data);
 	display_interface(&data);
-	for (int i = 0; i < ATTEMPT; i++)
-	{
+	// Game loop
+	for (int i = 0; i < ATTEMPT; i++) {
 		data.last_input = NULL;
-		while (!check_input(&data))
-		{
+		// Get input
+		while (!check_input(&data)) {
 			free(data.last_input);
 			data.last_input = readline("> ");
 		}
-		if (is_to_find(&data))
-		{
+		// Update game state
+		if (is_to_find(&data)) {
 			data.win = true;
-			break ;
+			break;
 		}
+		// Update game state
 		data.attempts++;
 		update_tab(&data);
 		display_interface(&data);
 		free(data.last_input);
 	}
+	// Display result
 	update_tab(&data);
 	display_interface(&data);
 	display_result(&data);
+	// Free memory
 	free_tab(data.guesses);
 	free_list(data.dictionary);
+
 	return (EXIT_SUCCESS);
 }

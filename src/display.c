@@ -1,30 +1,22 @@
 #include "../include/include.h"
-#include <string.h>
 
+// Set the color of the keyboard keys to the correct color after a guess
 void	set_keyboard_color(t_key *keyboard, char letter, char *color)
 {
-	for (int i = 0; i < 26; i++)
-	{
-		if (keyboard[i].letter == letter)
-		{
-			if (!strcmp(keyboard[i].color, RED))
-				;
-			else if (!strcmp(keyboard[i].color, BLACK))
-				;
-			else if (!strcmp(keyboard[i].color, YELLOW) && strcmp(color, RED))
-				;
-			else
+	for (int i = 0; i < 26; i++) {
+		if (keyboard[i].letter == letter) {
+			if ((!strcmp(keyboard[i].color, YELLOW) && !strcmp(color, RED)) || !strcmp(keyboard[i].color, WHITE))
 				keyboard[i].color = color;
 		}
 	}
 }
 
+// Print the Wordle grid
 void	print_grid(t_data *data)
 {
 	// Print the top border
 	printf("%s", TOP_LEFT);
-	for (int j = 0; j < data->word.nb_letter; j++)
-	{
+	for (int j = 0; j < data->word.nb_letter; j++) {
 		printf("%s%s%s", HORIZONTAL, HORIZONTAL, HORIZONTAL);
 		if (j < data->word.nb_letter - 1)
 			printf("%s", T_TOP);
@@ -32,53 +24,41 @@ void	print_grid(t_data *data)
 	printf("%s\n", TOP_RIGHT);
 
 	// Print the Wordle grid
-	for (int i = 0; i < ATTEMPT; i++)
-	{
+	for (int i = 0; i < ATTEMPT; i++) {
 		printf("%s", VERTICAL);
 		int k = 0;
 
 		// Print the row with guesses
-		if (!data->win && i == data->attempts)
-		{	
+		if (!data->win && i == data->attempts) {	
 			printf(" %s%c%s ", WHITE, data->word.first_letter, RESET);
 			printf("%s", VERTICAL);
 			k = 1;
 		}
-		for (int j = k; j < data->word.nb_letter; j++)
-		{
-			if (data->guesses[i] && data->guesses[i][j])
-			{
-				if (data->guesses[i][j] == data->word.word[j])
-				{
+		for (int j = k; j < data->word.nb_letter; j++) {
+			if (data->guesses[i] && data->guesses[i][j]) {
+				if (data->guesses[i][j] == data->word.word[j]) {
 					printf(" %s%c%s ", RED, data->guesses[i][j], RESET);
 					set_keyboard_color(data->keyboard, data->guesses[i][j], RED); 
 					data->word.alpha[data->guesses[i][j] - 65]--;
-				}
-				else if (data->word.alpha[data->guesses[i][j] - 65] > 0)
-				{
+				} else if (data->word.alpha[data->guesses[i][j] - 65] > 0) {
 					//strchr(data->guesses[i] + j, data->guesses[i][j]);
 					printf(" %s%c%s ", YELLOW, data->guesses[i][j], RESET);
 					set_keyboard_color(data->keyboard, data->guesses[i][j], YELLOW); 
 					data->word.alpha[data->guesses[i][j] - 65]--;
-				}
-				else
-				{
+				} else {
 					printf(" %s%c%s ", WHITE, data->guesses[i][j], RESET);
 					set_keyboard_color(data->keyboard, data->guesses[i][j], BLACK); 
 				}
-			}
-			else
+			} else
 				printf("%s _ %s", BLACK_ON_WHITE, RESET); // Empty box for no guess
 			printf("%s", VERTICAL);
 		}
 		printf("\n");
 
 		// Print the border between rows
-		if (i < ATTEMPT - 1)
-		{
+		if (i < ATTEMPT - 1) {
 			printf("%s", T_LEFT);
-			for (int j = 0; j < data->word.nb_letter; j++)
-			{
+			for (int j = 0; j < data->word.nb_letter; j++) {
 				printf("%s%s%s", HORIZONTAL, HORIZONTAL, HORIZONTAL);
 				if (j < data->word.nb_letter - 1)
 					printf("%s", CROSS);
@@ -99,21 +79,23 @@ void	print_grid(t_data *data)
 	printf("%s\n", BOTTOM_RIGHT);
 }
 
+// Print the keyboard with the correct colors
 void	print_keyboard(t_data *data, t_key *keyboard)
 {
 	int numRows = 3;
-	int numCols[] = {10, 10, 6}; // Nombre de colonnes pour chaque rangée
+	int numCols[] = {10, 10, 6}; // Number of columns for each row
 
 	int index = 0;
 
 	printf("\n");
-	for (int i = 0; i < numRows; i++)
-	{
-		int padding = (2 * data->word.nb_letter - numCols[i]) / 2; // Calcul du padding pour centrer la ligne
+	for (int i = 0; i < numRows; i++) {
+		// Padding for centering the keyboard
+		int padding = (2 * data->word.nb_letter - numCols[i]) / 2;
+ 		// Print padding
 		for (int p = 0; p < padding; p++)
-			printf("  "); // Espace pour le padding
-		for (int j = 0; j < numCols[i]; j++)
-		{
+			printf("  ");
+		// Print the keyboard
+		for (int j = 0; j < numCols[i]; j++) {
 			printf("%s%c%s ", keyboard[index].color, keyboard[index].letter, RESET);
 			index++;
 		}
@@ -122,8 +104,10 @@ void	print_keyboard(t_data *data, t_key *keyboard)
 	printf("\n");
 }
 
+// Print the rules of the game
 void	print_rules(void)
 {
+	// Clear the screen
 	printf("\e[H\e[2J\e[3J");
     // Print the rules
 	printf("Bienvenue dans Sutom !\n");

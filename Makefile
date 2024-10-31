@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+         #
+#    By: sdemaude <sdemaude@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/25 17:41:22 by sdemaude          #+#    #+#              #
-#    Updated: 2024/07/23 11:04:37 by sdemaude         ###   ########.fr        #
+#    Updated: 2024/10/31 15:49:11 by sdemaude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= SUTOM 
+NAME 		= MotMysTerm 
 
 CC 			= cc
 RM			= rm -f

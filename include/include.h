@@ -1,43 +1,47 @@
 #ifndef INCLUDE_H
 # define INCLUDE_H
 
+// Standard libraries
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <string.h>
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <time.h>
+
 # include "../lib/libft/libft.h"
 
 // Terminal color codes
-# define RED "\033[1;31m"
-# define GREEN "\033[1;32m"
-# define YELLOW "\033[1;33m"
-# define RESET "\033[0m"
-# define WHITE "\033[1;37m"
-# define BLACK "\033[0;30m"
+# define RED 			"\033[1;31m"
+# define GREEN 			"\033[1;32m"
+# define YELLOW 		"\033[1;33m"
+# define RESET 			"\033[0m"
+# define WHITE 			"\033[1;37m"
+# define BLACK 			"\033[0;30m"
 # define BLACK_ON_WHITE "\033[0;30;47m"
-# define BOLD "\033[1m"
+# define BOLD 			"\033[1m"
 
 // Extended ASCII characters for borders
-# define TOP_LEFT "\u250C"
-# define TOP_RIGHT "\u2510"
-# define BOTTOM_LEFT "\u2514"
-# define BOTTOM_RIGHT "\u2518"
-# define HORIZONTAL "\u2500"
-# define VERTICAL "\u2502"
-# define T_TOP "\u252C"
-# define T_BOTTOM "\u2534"
-# define T_LEFT "\u251C"
-# define T_RIGHT "\u2524"
-# define CROSS "\u253C"
+# define TOP_LEFT 		"\u250C"
+# define TOP_RIGHT 		"\u2510"
+# define BOTTOM_LEFT 	"\u2514"
+# define BOTTOM_RIGHT 	"\u2518"
+# define HORIZONTAL 	"\u2500"
+# define VERTICAL 		"\u2502"
+# define T_TOP 			"\u252C"
+# define T_BOTTOM 		"\u2534"
+# define T_LEFT 		"\u251C"
+# define T_RIGHT 		"\u2524"
+# define CROSS 			"\u253C"
 
+// Game settings
 # define ATTEMPT 6
-
 # define DICT_PATH "include/file.txt"
 
+// Error messages
 typedef enum e_incorrect_input
 {
 	ONLY_LETTER,
@@ -46,6 +50,7 @@ typedef enum e_incorrect_input
 	FIRST_LETTER
 }	t_incorrect_input;
 
+// Data structures
 typedef struct s_list_str
 {
 	char				*line;
