@@ -1,19 +1,18 @@
 #include "../include/include.h"
 
 // Set the color of the keyboard keys to the correct color after a guess
-void	set_keyboard_color(t_key *keyboard, char letter, char *color)
-{
+void	set_keyboard_color(t_key *keyboard, char letter, char *color) {
 	for (int i = 0; i < 26; i++) {
 		if (keyboard[i].letter == letter) {
-			if ((!strcmp(keyboard[i].color, YELLOW) && !strcmp(color, RED)) || !strcmp(keyboard[i].color, WHITE))
+			if ((!strcmp(keyboard[i].color, YELLOW) && !strcmp(color, RED)) || !strcmp(keyboard[i].color, WHITE)) 
 				keyboard[i].color = color;
+			break;
 		}
 	}
 }
 
 // Print the Wordle grid
-void	print_grid(t_data *data)
-{
+void	print_grid(t_data *data) {
 	// Print the top border
 	printf("%s", TOP_LEFT);
 	for (int j = 0; j < data->word.nb_letter; j++) {
@@ -26,31 +25,10 @@ void	print_grid(t_data *data)
 	// Print the Wordle grid
 	for (int i = 0; i < ATTEMPT; i++) {
 		printf("%s", VERTICAL);
-		int k = 0;
 
 		// Print the row with guesses
-		if (!data->win && i == data->attempts) {	
-			printf(" %s%c%s ", WHITE, data->word.first_letter, RESET);
-			printf("%s", VERTICAL);
-			k = 1;
-		}
-		for (int j = k; j < data->word.nb_letter; j++) {
-			if (data->guesses[i] && data->guesses[i][j]) {
-				if (data->guesses[i][j] == data->word.word[j]) {
-					printf(" %s%c%s ", RED, data->guesses[i][j], RESET);
-					set_keyboard_color(data->keyboard, data->guesses[i][j], RED); 
-					data->word.alpha[data->guesses[i][j] - 65]--;
-				} else if (data->word.alpha[data->guesses[i][j] - 65] > 0) {
-					//strchr(data->guesses[i] + j, data->guesses[i][j]);
-					printf(" %s%c%s ", YELLOW, data->guesses[i][j], RESET);
-					set_keyboard_color(data->keyboard, data->guesses[i][j], YELLOW); 
-					data->word.alpha[data->guesses[i][j] - 65]--;
-				} else {
-					printf(" %s%c%s ", WHITE, data->guesses[i][j], RESET);
-					set_keyboard_color(data->keyboard, data->guesses[i][j], BLACK); 
-				}
-			} else
-				printf("%s _ %s", BLACK_ON_WHITE, RESET); // Empty box for no guess
+		for (int j = 0; j < data->word.nb_letter; j++) {
+			printf(" %s%c%s ", data->guesses_color[i][j].color, data->guesses_color[i][j].letter, RESET);
 			printf("%s", VERTICAL);
 		}
 		printf("\n");
@@ -65,7 +43,6 @@ void	print_grid(t_data *data)
 			}
 			printf("%s\n", T_RIGHT);
 		}
-		refill_alpha(data);
 	}
 
 	// Print the bottom border
@@ -80,8 +57,7 @@ void	print_grid(t_data *data)
 }
 
 // Print the keyboard with the correct colors
-void	print_keyboard(t_data *data, t_key *keyboard)
-{
+void	print_keyboard(t_data *data, t_key *keyboard) {
 	int numRows = 3;
 	int numCols[] = {10, 10, 6}; // Number of columns for each row
 
@@ -105,8 +81,7 @@ void	print_keyboard(t_data *data, t_key *keyboard)
 }
 
 // Print the rules of the game
-void	print_rules(void)
-{
+void	print_rules(void) {
 	// Clear the screen
 	printf("\e[H\e[2J\e[3J");
     // Print the rules

@@ -1,8 +1,7 @@
 #include "../include/include.h"
 
 // Set the color of the keyboard keys 
-void	set_keyboard(t_data *data)
-{
+void	set_keyboard(t_data *data) {
 	static t_key keyboard[] = {
 		// First row
 	{'A', WHITE}, {'Z', WHITE}, {'E', WHITE}, {'R', WHITE}, {'T', WHITE},
@@ -19,8 +18,7 @@ void	set_keyboard(t_data *data)
 }
 
 // Get the dictionary file
-bool	get_file(t_data *data) //TODO : check if the file is correct
-{
+bool	get_file(t_data *data) { //TODO : check if the file is correct
 	char	*file;
 	char	*line;
 	int		fd;
@@ -46,8 +44,7 @@ bool	get_file(t_data *data) //TODO : check if the file is correct
 }
 
 // Get a random word from the dictionary
-void	get_word(t_data	*data)
-{
+void	get_word(t_data	*data) {
 	t_list_str	*tmp = data->dictionary;
 
 	srand(time(NULL));
@@ -60,4 +57,21 @@ void	get_word(t_data	*data)
 	data->word.word = tmp->line;
 	data->word.first_letter = data->word.word[0];
 	data->word.nb_letter = ft_strlen(data->word.word);
+}
+
+// Initialize the guesses table
+void	init_guesses(t_data *data) {
+	for (int i = 0; i < ATTEMPT; i++) {
+		data->guesses_color[i] = malloc(sizeof(t_key) * data->word.nb_letter);
+	}
+	for (int i = 0; i < ATTEMPT; i++) {
+		for (int j = 0; j < data->word.nb_letter; j++) {
+			if (i == 0)
+				data->guesses_color[i][j].letter = '.';
+			else
+				data->guesses_color[i][j].letter = ' ';
+			data->guesses_color[i][j].color = WHITE;
+		}
+	}
+	data->guesses_color[0][0].letter = data->word.first_letter;
 }

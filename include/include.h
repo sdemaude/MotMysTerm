@@ -81,7 +81,7 @@ typedef struct s_data
 	t_word		word;
 	int			attempts;
 	char		*last_input;
-	char		*guesses[6];
+	t_key		*guesses_color[ATTEMPT];
 	bool		win;
 }	t_data;
 
@@ -90,22 +90,23 @@ void		set_keyboard(t_data *data);
 bool		get_file(t_data *data);
 void		get_word(t_data	*data);
 void		refill_alpha(t_data *data);
+void		init_guesses(t_data *data);
+void 		set_keyboard_color(t_key *keyboard, char letter, char *color);
 
 //DISPLAY
 void		print_rules(void);
-void		print_keyboard(t_data *data, t_key keyboard[]);
+void		print_keyboard(t_data *data, t_key *keyboard);
 void		print_grid(t_data *data);
 
 //LIST_UTILS
 void		lststr_add_bk(t_list_str **lst, t_list_str *new);
 t_list_str	*lststr_new(char *str);
 void		free_list(t_list_str *list);
-//void		print_list(t_list_str *list);
 
 void		get_input(t_data *data);
 
 //INPUT
-bool		check_input(t_data *data);
+bool		is_input_correct(t_data *data);
 bool		is_to_find(t_data *data);
 
 #endif
