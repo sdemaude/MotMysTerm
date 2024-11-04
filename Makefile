@@ -6,7 +6,7 @@
 #    By: sdemaude <sdemaude@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/25 17:41:22 by sdemaude          #+#    #+#              #
-#    Updated: 2024/10/31 15:49:11 by sdemaude         ###   ########.fr        #
+#    Updated: 2024/11/04 14:28:12 by sdemaude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCFILE		= main\
 			  list_utils\
 			  display\
 			  init\
-			  input
+			  input\
+			  game_logic
 
 SRC 		= $(addprefix $(SRCDIR)/,$(addsuffix .c,$(SRCFILE)))
 

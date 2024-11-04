@@ -1,17 +1,5 @@
 #include "../include/include.h"
 
-// Set the color of the keyboard keys to the correct color after a guess
-void	set_keyboard_color(t_key *keyboard, char letter, char *color) {
-	for (int i = 0; i < 26; i++) {
-		if (keyboard[i].letter == letter) {
-			if ((!strcmp(keyboard[i].color, YELLOW) && !strcmp(color, RED)) || !strcmp(keyboard[i].color, WHITE)) 
-				keyboard[i].color = color;
-			break;
-		}
-	}
-}
-
-// Print the Wordle grid
 void	print_grid(t_data *data) {
 	// Print the top border
 	printf("%s", TOP_LEFT);
@@ -56,7 +44,6 @@ void	print_grid(t_data *data) {
 	printf("%s\n", BOTTOM_RIGHT);
 }
 
-// Print the keyboard with the correct colors
 void	print_keyboard(t_data *data, t_key *keyboard) {
 	int numRows = 3;
 	int numCols[] = {10, 10, 6}; // Number of columns for each row
@@ -65,12 +52,9 @@ void	print_keyboard(t_data *data, t_key *keyboard) {
 
 	printf("\n");
 	for (int i = 0; i < numRows; i++) {
-		// Padding for centering the keyboard
 		int padding = (2 * data->word.nb_letter - numCols[i]) / 2;
- 		// Print padding
 		for (int p = 0; p < padding; p++)
 			printf("  ");
-		// Print the keyboard
 		for (int j = 0; j < numCols[i]; j++) {
 			printf("%s%c%s ", keyboard[index].color, keyboard[index].letter, RESET);
 			index++;
@@ -80,11 +64,8 @@ void	print_keyboard(t_data *data, t_key *keyboard) {
 	printf("\n");
 }
 
-// Print the rules of the game
 void	print_rules(void) {
-	// Clear the screen
-	printf("\e[H\e[2J\e[3J");
-    // Print the rules
+	printf("\e[H\e[2J\e[3J"); // Clear the screen
 	printf("Bienvenue dans Sutom !\n");
 	printf("Règles du jeu :\n");
 	printf("1. Vous avez 6 tentatives pour deviner un mot de 6 à 9 lettres.\n");
@@ -99,4 +80,17 @@ void	print_rules(void) {
 	printf("Explication : S est correct et à la bonne place (Rouge). U est correct mais à la mauvaise place (Jaune).\n");
 	printf("T n'est pas dans le mot (Blanc). O n'est pas dans le mot (Blanc). M est correct mais à la mauvaise place (Jaune).\n");
 	printf("Bonne chance et amusez-vous bien !\n\n");
+}
+
+void	display_interface(t_data *data) {
+	print_rules();
+	print_grid(data);
+	print_keyboard(data, data->keyboard);
+}
+
+void	display_result(t_data *data) {
+	if (data->win)
+		printf("%s%sGagné !!%s\n", GREEN, BOLD, RESET);
+	else
+		printf("%s%sPerdu...%s\nLe mot à trouver était : %s.\n", RED, BOLD, RESET, data->word.word);
 }

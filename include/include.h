@@ -37,9 +37,15 @@
 # define T_RIGHT 		"\u2524"
 # define CROSS 			"\u253C"
 
+// Bad input messages TODO
+# define ERR_ONLY_LETTER	"Le mot ne peut être composé que de lettres\n"
+# define ERR_NUMBER_LETTER	"Ce mot n'a pas le bon nombre de lettres\n"
+# define ERR_IN_DICTIONARY	"Ce mot n'est pas dans le dictionnaire du jeu\n"
+# define ERR_FIRST_LETTER	"Le mot doit commencer par la lettre %c\n"
+
 // Game settings
-# define ATTEMPT 6
-# define DICT_PATH "include/file.txt"
+# define ATTEMPT	6
+# define DICT_PATH	"include/file.txt"
 
 // Error messages
 typedef enum e_incorrect_input
@@ -59,54 +65,59 @@ typedef struct s_list_str
 
 typedef struct s_word
 {
-	char	*word;
-	int		alpha[26];
-	int		nb_letter;
-	char	first_letter;
+	char				*word;
+	int					alpha[26];
+	int					nb_letter;
+	char				first_letter;
 }	t_word;
 
 typedef struct s_key
 {
-	char	letter;
-	char	*color;
+	char				letter;
+	char				*color;
 }	t_key;
 
 typedef struct s_data
 {
-	int			language;
-	char		*dic_path;
-	t_list_str	*dictionary;
-	t_key		*keyboard;
-	int			word_in_dic;
-	t_word		word;
-	int			attempts;
-	char		*last_input;
-	t_key		*guesses_color[ATTEMPT];
-	bool		win;
+	int					language;
+	char				*dic_path;
+	t_list_str			*dictionary;
+	t_key				*keyboard;
+	int					word_in_dic;
+	t_word				word;
+	int					attempts;
+	char				*last_input;
+	t_key				*guesses_color[ATTEMPT];
+	bool				win;
 }	t_data;
 
+//DISPLAY
+void		print_grid(t_data *data);
+void		print_keyboard(t_data *data, t_key *keyboard);
+void		print_rules(void);
+void		display_interface(t_data *data);
+void		display_result(t_data *data);
+
+// GAME_LOGIC
+void 		set_keyboard_color(t_key *keyboard, char letter, char *color);
+void		refill_alpha(t_data *data);
+void		update_guesses(t_data *data);
+void		update_next_guess(t_data *data);
+
 //INIT
-void		set_keyboard(t_data *data);
 bool		get_file(t_data *data);
 void		get_word(t_data	*data);
-void		refill_alpha(t_data *data);
+void		init_keyboard(t_data *data);
 void		init_guesses(t_data *data);
-void 		set_keyboard_color(t_key *keyboard, char letter, char *color);
-
-//DISPLAY
-void		print_rules(void);
-void		print_keyboard(t_data *data, t_key *keyboard);
-void		print_grid(t_data *data);
-
-//LIST_UTILS
-void		lststr_add_bk(t_list_str **lst, t_list_str *new);
-t_list_str	*lststr_new(char *str);
-void		free_list(t_list_str *list);
-
-void		get_input(t_data *data);
 
 //INPUT
-bool		is_input_correct(t_data *data);
 bool		is_to_find(t_data *data);
+bool		is_in_dict(t_data *data, char *input);
+bool		is_input_correct(t_data *data);
+
+//LIST_UTILS
+void		lststr_add_back(t_list_str **lst, t_list_str *new);
+t_list_str	*lststr_new(char *str);
+void		free_list(t_list_str *list);
 
 #endif
