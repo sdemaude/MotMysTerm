@@ -27,7 +27,7 @@ To install and run **MotMysTerm**, follow these steps:
 
 3. Compile the program:
 
-   `make`
+   `make -s`
 
 4. Run the game:
 
