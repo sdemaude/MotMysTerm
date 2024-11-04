@@ -17,7 +17,7 @@ void	refill_alpha(t_data *data) {
 		data->word.alpha[data->word.word[i] - 65]++;
 }
 
-void update_guesses(t_data *data) {
+void	update_guesses(t_data *data) {
 	refill_alpha(data);
 	for (int i = 0; i < data->word.nb_letter; i++) {
 		data->guesses_color[data->attempts][i].letter = data->last_input[i];

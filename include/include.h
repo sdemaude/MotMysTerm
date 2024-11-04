@@ -48,8 +48,7 @@
 # define DICT_PATH	"include/file.txt"
 
 // Error messages
-typedef enum e_incorrect_input
-{
+typedef enum e_incorrect_input {
 	ONLY_LETTER,
 	NUMBER_LETTER,
 	IN_DICTIONARY,
@@ -57,28 +56,24 @@ typedef enum e_incorrect_input
 }	t_incorrect_input;
 
 // Data structures
-typedef struct s_list_str
-{
+typedef struct	s_list_str {
 	char				*line;
 	struct s_list_str	*next;
 }	t_list_str;
 
-typedef struct s_word
-{
+typedef struct	s_word {
 	char				*word;
 	int					alpha[26];
 	int					nb_letter;
 	char				first_letter;
 }	t_word;
 
-typedef struct s_key
-{
+typedef struct	s_key {
 	char				letter;
 	char				*color;
 }	t_key;
 
-typedef struct s_data
-{
+typedef struct	s_data {
 	int					language;
 	char				*dic_path;
 	t_list_str			*dictionary;

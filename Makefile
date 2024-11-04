@@ -6,7 +6,7 @@
 #    By: sdemaude <sdemaude@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/25 17:41:22 by sdemaude          #+#    #+#              #
-#    Updated: 2024/11/04 14:28:12 by sdemaude         ###   ########.fr        #
+#    Updated: 2024/11/04 16:14:01 by sdemaude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,9 @@ NAME 		= MotMysTerm
 
 CC 			= cc
 RM			= rm -f
-CLONE 		= git clone --depth=1
 
-CFLAGS 		= -Wall -Wextra -Werror -g
-CLINKS		= -ldl -lglfw -pthread -lm -lreadline
+CFLAGS 		= -Wall -Wextra -Werror 
+CLINKS		= -lreadline
 
 LIBFTDIR	= lib/libft
 LIBFT		= $(LIBFTDIR)/libft.a

@@ -20,7 +20,7 @@ void	get_input(t_data *data) {
 	}
 }
 
-int	main(void) {
+int		main(void) {
 	static t_data	data;
 	init_game(&data);
 
