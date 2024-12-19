@@ -1,11 +1,9 @@
 #include "../include/include.h"
 
 bool	get_file(t_data *data) { //TODO : check if the file is correct
-	char	*file;
 	char	*line;
 	int		fd;
 
-	file = NULL;
 	fd = open(DICT_PATH, O_RDONLY);
 	if (fd < 0)
 		return (printf("Error\n"), false);
@@ -16,7 +14,7 @@ bool	get_file(t_data *data) { //TODO : check if the file is correct
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		lststr_add_back(&data->dictionary, lststr_new(line));
+		lststr_add_front(&data->dictionary, lststr_new(line));
 		data->word_in_dic++;
 	}
 

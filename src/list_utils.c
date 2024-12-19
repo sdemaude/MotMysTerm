@@ -1,8 +1,7 @@
 #include "../include/include.h"
 
-void	lststr_add_back(t_list_str **lst, t_list_str *new) {
-	while (*lst != NULL)
-		lst = &(*lst)->next;
+void	lststr_add_front(t_list_str **lst, t_list_str *new) {
+	new->next = *lst;
 	*lst = new;
 }
 

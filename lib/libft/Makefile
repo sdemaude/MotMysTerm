@@ -12,7 +12,7 @@
 
 NAME = libft.a
 OBJS = $(SRC:.c=.o)
-CC = cc -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror -O3
 PRINTF = printf
 
 SRC = 	ft_atoi.c\
