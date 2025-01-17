@@ -15,7 +15,7 @@ NAME 		= MotMysTerm
 CC 			= cc
 RM			= rm -f
 
-CFLAGS 		= -Wall -Wextra -Werror 
+CFLAGS 		= -Wall -Wextra -Werror -O3
 CLINKS		= -lreadline
 
 LIBFTDIR	= lib/libft

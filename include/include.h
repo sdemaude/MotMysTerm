@@ -111,7 +111,7 @@ bool		is_in_dict(t_data *data, char *input);
 bool		is_input_correct(t_data *data);
 
 //LIST_UTILS
-void		lststr_add_back(t_list_str **lst, t_list_str *new);
+void		lststr_add_front(t_list_str **lst, t_list_str *new);
 t_list_str	*lststr_new(char *str);
 void		free_list(t_list_str *list);
 
